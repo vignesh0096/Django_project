@@ -160,7 +160,7 @@ class Login(CreateAPIView):
 
 
 class CreateProduct(CreateAPIView):
-    serializer_class = ProductSerializer
+    serializer_class = ProductCustomSerializer
     permission_classes = [TokenPermissionPost]
 
     def post(self, request, *args, **kwargs):

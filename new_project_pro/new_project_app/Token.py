@@ -29,7 +29,7 @@ class TokenPermissionView(permissions.BasePermission):
                 user = token_obj.user_id
                 user_role = Userrole.objects.get(user=user)
                 role = user_role.r_id
-                perm = UserRolePermission.objects.filter(r=role).values('p_id')
+                perm = UserRolePermission.objects.filter(role_id=role).values('permission_id')
                 for i in range(len(perm)):
                     if 7 == perm[i]['p_id']:
                         return True
@@ -67,7 +67,7 @@ class TokenPermissionPut(permissions.BasePermission):
                 user = token_obj.user_id
                 user_role = Userrole.objects.get(user=user)
                 role = user_role.r_id
-                perm = UserRolePermission.objects.filter(r=role).values('p_id')
+                perm = UserRolePermission.objects.filter(role_id=role).values('permission_id')
                 for i in range(len(perm)):
                     if 6 == perm[i]['p_id']:
                         return True
@@ -86,7 +86,7 @@ class TokenPermissionDelete(permissions.BasePermission):
                 user = token_obj.user_id
                 user_role = Userrole.objects.get(user=user)
                 role = user_role.r_id
-                perm = UserRolePermission.objects.filter(r=role).values('p_id')
+                perm = UserRolePermission.objects.filter(role_id=role).values('permission_id')
                 for i in range(len(perm)):
                     if 8 == perm[i]['p_id']:
                         return True
