@@ -41,4 +41,29 @@ class RoleSerializerCustom(serializers.Serializer):
     role = serializers.ChoiceField(choices=ROLES)
 
 
+class LoginCustomSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.IntegerField()
 
+
+class LoginSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    password = serializers.CharField()
+    phone_number = serializers.IntegerField()
+    email = serializers.EmailField()
+
+
+class ProductSerializer(serializers.Serializer):
+    class Meta:
+        model = Products
+        fields = '__all__'
+
+
+class ProductCustomSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    product_name = serializers.CharField()
+    price = serializers.IntegerField()
+
+
+class DeleteProductSerializer(serializers.Serializer):
+    id = serializers.IntegerField

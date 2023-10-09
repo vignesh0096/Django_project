@@ -2,8 +2,8 @@ from django.db import models
 
 
 class UserManager(models.Manager):
-    def create(self, email, password, name, phone_no):
-        user = self.models(email='email', password='password',name='name',phone_no='phone_no')
+    def create(self, email, password, name, phone_no,roles):
+        user = self.models(email=email, password=password,name=name,phone_no=phone_no,role = roles)
         user.save(using=self._db)
 
 
@@ -38,17 +38,18 @@ class Roles(models.Model):
 
 class UserRoleManager(models.Manager):
     def add(self,user_id,role_id):
-         user = self.models(user_id=user_id,role_id=role_id)
+        user = self.models(u_id=user_id,r_id=role_id)
+        user.save(using=self._db)
 
 
-class Userroles(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    role = models.ForeignKey('Roles', models.DO_NOTHING)
+class Userrole(models.Model):
+    u = models.ForeignKey('User', models.DO_NOTHING)
+    r = models.ForeignKey('Roles', models.DO_NOTHING)
     objects = UserRoleManager
 
     class Meta:
         managed = False
-        db_table = 'userroles'
+        db_table = 'userrole'
 
 
 class PermissionManager(models.Manager):
@@ -94,8 +95,29 @@ class Permissiongenerator(models.Model):
         db_table = 'permissiongenerator'
 
 
+class TokenManager(models.Manager):
+    pass
+
+
+class Token(models.Model):
+    key = models.CharField(max_length=100)
+    created = models.DateTimeField()
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    objects = TokenManager
+
+    class Meta:
+        managed = False
+        db_table = 'Token'
+
+
+class ProductManager(models.Manager):
+    pass
+
+
 class Products(models.Model):
     product_name = models.CharField(max_length=100)
+    price = models.IntegerField()
+    objects = ProductManager
 
     class Meta:
         managed = False
