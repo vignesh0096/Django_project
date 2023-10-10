@@ -55,10 +55,10 @@ class RoleCreation(CreateAPIView):
         serializer_class = RoleSerializer(data=request.data)
         if serializer_class.is_valid():
             serializer_class.save()
-            add = Permission.objects.get(codename='create_User').perm_id
-            edit = Permission.objects.get(codename='edit_User').perm_id
-            view = Permission.objects.get(codename='view_User').perm_id
-            delete = Permission.objects.get(codename='delete_User').perm_id
+            add = Permission.objects.get(codename='create_Products').perm_id
+            edit = Permission.objects.get(codename='edit_Products').perm_id
+            view = Permission.objects.get(codename='view_Products').perm_id
+            delete = Permission.objects.get(codename='delete_Products').perm_id
             role_id = serializer_class.data['role_id']
             if serializer_class.data['role'] == 'ADMIN':
                 UserRolePermission.objects.create(role_id=role_id, permission_id=add)
@@ -137,7 +137,7 @@ class Login(CreateAPIView):
                     'status_flag':True,
                     'status': "success",
                     'error_details': None,
-                    'data':{'user':serializer.data,},
+                    'data':{'user':serializer.data},
                     }
                 return Response(data_response)
             else:
@@ -165,9 +165,9 @@ class CreateProduct(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            serializer = ProductSerializer(data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
+            serializer_class = ProductSerializer(data=request.data)
+            if serializer_class.is_valid(raise_exception=True):
+                value = serializer_class.save()
                 data_response = {
                     'response_code': status.HTTP_200_OK,
                     'message': "Product Created succesfully",
@@ -175,7 +175,7 @@ class CreateProduct(CreateAPIView):
                     'status': "success",
                     'method': request.method,
                     'error_details': None,
-                    'data': {'user': serializer.data}}
+                    'data': {'user': serializer_class.data}}
                 return Response(data_response)
             else:
                 data_response = {

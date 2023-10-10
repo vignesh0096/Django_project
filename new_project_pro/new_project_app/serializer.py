@@ -47,10 +47,9 @@ class LoginCustomSerializer(serializers.Serializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    name = serializers.CharField()
-    password = serializers.CharField()
-    phone_number = serializers.IntegerField()
-    email = serializers.EmailField()
+    class Meta:
+        model = User
+        fields = '__all__'
 
 
 class ProductSerializer(serializers.Serializer):
@@ -60,10 +59,10 @@ class ProductSerializer(serializers.Serializer):
 
 
 class ProductCustomSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    # id = serializers.IntegerField()
     product_name = serializers.CharField()
     price = serializers.IntegerField()
 
 
 class DeleteProductSerializer(serializers.Serializer):
-    id = serializers.IntegerField
+    id = serializers.IntegerField()
