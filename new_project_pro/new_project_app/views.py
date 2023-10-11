@@ -214,7 +214,7 @@ class ViewProducts(RetrieveAPIView):
 
 class ChangeProduct(UpdateAPIView):
 
-    serializer_class = ProductCustomSerializer
+    serializer_class = UpdateProductSerializer
     permission_classes = [TokenPermissionPut]
     queryset = Products.objects.all()
 

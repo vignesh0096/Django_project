@@ -63,5 +63,11 @@ class ProductCustomSerializer(serializers.Serializer):
     price = serializers.IntegerField()
 
 
+class UpdateProductSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    product_name = serializers.CharField()
+    price = serializers.IntegerField()
+
+
 class DeleteProductSerializer(serializers.Serializer):
     id = serializers.IntegerField()
