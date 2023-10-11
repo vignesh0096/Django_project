@@ -52,14 +52,13 @@ class LoginSerializer(serializers.Serializer):
         fields = '__all__'
 
 
-class ProductSerializer(serializers.Serializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
         fields = '__all__'
 
 
 class ProductCustomSerializer(serializers.Serializer):
-    # id = serializers.IntegerField()
     product_name = serializers.CharField()
     price = serializers.IntegerField()
 

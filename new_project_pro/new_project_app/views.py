@@ -42,7 +42,7 @@ class PermissionGenerator(CreateAPIView):
                                      'status': "success",
                                      'error_details': None,
                                      'data': serializer_class.data})
-
+        else:
             return Response({'response_code' : status.HTTP_400_BAD_REQUEST,
                              'message' : 'Enter valid credentials',
                              'status' : 'Failed'})
@@ -167,7 +167,7 @@ class CreateProduct(CreateAPIView):
         try:
             serializer_class = ProductSerializer(data=request.data)
             if serializer_class.is_valid(raise_exception=True):
-                value = serializer_class.save()
+                serializer_class.save()
                 data_response = {
                     'response_code': status.HTTP_200_OK,
                     'message': "Product Created succesfully",
